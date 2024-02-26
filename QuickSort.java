@@ -8,6 +8,7 @@ public class QuickSort implements DivideAndConquerAlgorithm<ArrayList<Integer>> 
 
   @Override
   public ArrayList<Integer> solveSmall(ArrayList<Integer> data) {
+    System.out.println("Pequeño: " + data);
     return data;
   }
 
@@ -32,8 +33,12 @@ public class QuickSort implements DivideAndConquerAlgorithm<ArrayList<Integer>> 
   @Override
   public ArrayList<Integer> combine(ArrayList<ArrayList<Integer>> solutions) {
     ArrayList<Integer> combined = new ArrayList<Integer>();
-    combined.addAll(solutions.get(0));
-    combined.addAll(solutions.get(1));
+    System.out.println("Combinando: " + solutions);
+    for (ArrayList<Integer> solution : solutions) {
+      for (Integer element : solution) {
+        combined.add(element);
+      }
+    }
     return combined;
   }
 }
