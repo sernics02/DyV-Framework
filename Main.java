@@ -8,8 +8,10 @@ public class Main {
       data.add((int) (Math.random() * 100));
     }
     System.out.println(data);
-    DivideAndConquerAlgorithm<ArrayList<Integer>> mergeSort = new MergeSort();
-    ArrayList<Integer> sorted = mergeSort.solve(data, size);
+    // DivideAndConquerAlgorithm<ArrayList<Integer>> mergeSort = new MergeSort();
+    // ArrayList<Integer> sorted = mergeSort.solve(data, size);
+    DivideAndConquerAlgorithm<ArrayList<Integer>> quickSort = new QuickSort();
+    ArrayList<Integer> sorted = quickSort.solve(data, size);
     System.out.println(sorted);
   }
 }

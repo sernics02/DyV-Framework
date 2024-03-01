@@ -3,39 +3,42 @@ import java.util.ArrayList;
 public class QuickSort implements DivideAndConquerAlgorithm<ArrayList<Integer>> {
   @Override
   public Boolean isSmall(ArrayList<Integer> data) {
-    return data.size() < 2;
+    return data.size() <= 1;
   }
 
   @Override
-  public ArrayList<Integer> solveSmall(ArrayList<Integer> data) {
-    System.out.println("Pequeño: " + data);
-    return data;
-  }
-
-  @Override
-  public ArrayList<ArrayList<Integer>> decompose(ArrayList<Integer> data, Integer size) {
+  public ArrayList<ArrayList<Integer>> decompose(ArrayList<Integer> data, Integer subproblemSize) {
+    Integer pivot = data.get(data.size() / 2);
     ArrayList<ArrayList<Integer>> subproblems = new ArrayList<ArrayList<Integer>>();
-    ArrayList<Integer> left = new ArrayList<Integer>();
-    ArrayList<Integer> right = new ArrayList<Integer>();
-    Integer pivot = data.get(0);
-    for (int i = 1; i < data.size(); i++) {
-      if (data.get(i) < pivot) {
-        left.add(data.get(i));
+    ArrayList<Integer> subproblem1 = new ArrayList<Integer>();
+    ArrayList<Integer> subproblem2 = new ArrayList<Integer>();
+    for (int i = 0; i < data.size(); i++) {
+      if (data.get(i).compareTo(pivot) < 0) {
+        subproblem1.add(data.get(i));
       } else {
-        right.add(data.get(i));
+        if (data.get(i).compareTo(pivot) > 0)
+        subproblem2.add(data.get(i));
       }
     }
-    subproblems.add(left);
-    subproblems.add(right);
+    subproblems.add(subproblem1);
+    ArrayList<Integer> pivotList = new ArrayList<Integer>();
+    pivotList.add(pivot);
+    subproblems.add(pivotList);
+    subproblems.add(subproblem2);
     return subproblems;
   }
 
   @Override
-  public ArrayList<Integer> combine(ArrayList<ArrayList<Integer>> solutions) {
+  public ArrayList<Integer> solveSmall(ArrayList<Integer> smallProblem) {
+    return smallProblem;
+  }
+
+  @Override
+  public ArrayList<Integer> combine(ArrayList<ArrayList<Integer>> subproblemSolutions) {
     ArrayList<Integer> combined = new ArrayList<Integer>();
-    System.out.println("Combinando: " + solutions);
-    for (ArrayList<Integer> solution : solutions) {
-      for (Integer element : solution) {
+    // Combine the solutions of the subproblems here
+    for (ArrayList<Integer> subproblemSolution : subproblemSolutions) {
+      for (Integer element : subproblemSolution) {
         combined.add(element);
       }
     }
