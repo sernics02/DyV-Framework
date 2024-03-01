@@ -17,4 +17,5 @@ public interface DivideAndConquerAlgorithm<T> {
       return combine(solutions);
     }
   }
+  public abstract String getRecurrence();
 }

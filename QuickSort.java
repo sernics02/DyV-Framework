@@ -44,4 +44,9 @@ public class QuickSort implements DivideAndConquerAlgorithm<ArrayList<Integer>> 
     }
     return combined;
   }
+
+  @Override
+  public String getRecurrence() {
+    return "2T(n/2) + O(n)";
+  }
 }
