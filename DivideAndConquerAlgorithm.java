@@ -22,6 +22,9 @@ public abstract class DivideAndConquerAlgorithm<Problem, Solution> {
     }
   }
   
+  public Solution modification(Problem data, Integer size) {
+    return modification(data, size, 0, 0);
+  }
   
   public Solution modification(Problem data, Integer size, Integer recursiveCalls, Integer maxRecursivityLevel) {
     if (isSmall(data)) {
