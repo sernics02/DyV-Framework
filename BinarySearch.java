@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BinarySearch extends DivideAndConquerAlgorithm<BinarySearch.SearchData, Integer> {
   public static class SearchData {
@@ -15,7 +14,6 @@ public class BinarySearch extends DivideAndConquerAlgorithm<BinarySearch.SearchD
       this.end = end;
     }
   }
-
 
   public Boolean isSmall(SearchData data) {
     return data.start == data.end;

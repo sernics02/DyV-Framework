@@ -1,6 +1,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.File;
 
 public class Ordenacion {
   public void ordenar() {
@@ -28,7 +30,7 @@ public class Ordenacion {
     long quickTime = endTime - startTime;
     generateTableResults(mergeTime, mergeRecursiveCalls, mergeMaxRecursivityLevel, quickTime, quickRecursiveCalls, quickMaxRecursivityLevel);
     toFile(mergeSorted, "solutions.txt");
-    // toFile(quickSorted, "solutions.txt");
+    toFile(quickSorted, "solutions.txt");
   }
   
   public static ArrayList<Integer> generateArray(Integer size) {
@@ -51,12 +53,20 @@ public class Ordenacion {
   
   public static void toFile(ArrayList<Integer> data, String filename) {
     try {
-      FileWriter file = new FileWriter(filename);
-      for (Integer number : data) {
-        file.write(number + " ");
+      File file = new File(filename);
+      boolean append = file.exists(); // Verificar si el archivo ya existe
+      FileWriter fileWriter = new FileWriter(file, append);
+      BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+      if (append) {
+        bufferedWriter.newLine(); // Agregar una nueva línea antes de añadir los datos
       }
-      file.write("\n");
-      file.close();
+
+      for (Integer number : data) {
+        bufferedWriter.write(number + " ");
+      }
+
+      bufferedWriter.close();
     } catch (IOException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();
