@@ -8,7 +8,7 @@ public class Main {
     ArrayList<Integer> data = generateArray(size);
 
     long startTime = System.currentTimeMillis();
-    DivideAndConquerAlgorithm<ArrayList<Integer>> mergeSort = new MergeSort();
+    DivideAndConquerAlgorithm<ArrayList<Integer>, ArrayList<Integer>> mergeSort = new MergeSort();
     int mergeRecursiveCalls = 0;
     Integer mergeMaxRecursivityLevel = 0;
     ArrayList<Integer> mergeSorted = mergeSort.modification(data, size, mergeRecursiveCalls, mergeMaxRecursivityLevel);
@@ -20,7 +20,7 @@ public class Main {
     startTime = System.currentTimeMillis();
     Integer quickRecursiveCalls = 0;
     Integer quickMaxRecursivityLevel = 0;
-    DivideAndConquerAlgorithm<ArrayList<Integer>> quickSort = new QuickSort();
+    DivideAndConquerAlgorithm<ArrayList<Integer>, ArrayList<Integer>> quickSort = new QuickSort();
     ArrayList<Integer> quickSorted = quickSort.modification(data, size, quickRecursiveCalls, quickMaxRecursivityLevel);
     quickRecursiveCalls = quickSort.getRecursiveCalls();
     quickMaxRecursivityLevel = quickSort.getMaxRecursivityLevel();

@@ -1,35 +1,39 @@
 import java.util.ArrayList;
 
-public abstract class DivideAndConquerAlgorithm<T> {
-  public abstract Boolean isSmall(T data);
-  public abstract T solveSmall(T data);
-  public abstract ArrayList<T> decompose(T data, Integer size);
-  public abstract T combine(ArrayList<T> solutions);
+public abstract class DivideAndConquerAlgorithm<Problem, Solution> {
+  private Integer maxRecursivityLevel = 0;
+  private Integer calls = 0;
+
+  public abstract Boolean isSmall(Problem data);
+  public abstract Solution solveSmall(Problem data);
+  public abstract ArrayList<Problem> decompose(Problem data, Integer size);
+  public abstract Solution combine(ArrayList<Solution> solutions);
   
-  public T solve(T data, Integer size) {
+  public Solution solve(Problem data, Integer size) {
     if (isSmall(data)) {
       return solveSmall(data);
     } else {
-      ArrayList<T> subproblems = decompose(data, size);
-      ArrayList<T> solutions = new ArrayList<T>();
-      for (T subproblem : subproblems) {
+      ArrayList<Problem> subproblems = decompose(data, size);
+      ArrayList<Solution> solutions = new ArrayList<Solution>();
+      for (Problem subproblem : subproblems) {
         solutions.add(solve(subproblem, size));
       }
       return combine(solutions);
     }
   }
   
-  public T modification(T data, Integer size, Integer recursiveCalls, Integer maxRecursivityLevel) {
+  
+  public Solution modification(Problem data, Integer size, Integer recursiveCalls, Integer maxRecursivityLevel) {
     if (isSmall(data)) {
       return solveSmall(data);
     } else {
-      ArrayList<T> subproblems = decompose(data, size);
-      ArrayList<T> solutions = new ArrayList<T>();
+      ArrayList<Problem> subproblems = decompose(data, size);
+      ArrayList<Solution> solutions = new ArrayList<Solution>();
       maxRecursivityLevel++;
       if (maxRecursivityLevel > this.maxRecursivityLevel) {
         this.maxRecursivityLevel = maxRecursivityLevel;
       }
-      for (T subproblem : subproblems) {
+      for (Problem subproblem : subproblems) {
         recursiveCalls++;
         if (recursiveCalls > this.calls) {
           this.calls = recursiveCalls;
@@ -39,7 +43,7 @@ public abstract class DivideAndConquerAlgorithm<T> {
       return combine(solutions);
     }
   }
-  
+
   public abstract String getRecurrence();
   
   public Integer getRecursiveCalls() {
@@ -49,7 +53,4 @@ public abstract class DivideAndConquerAlgorithm<T> {
   public Integer getMaxRecursivityLevel() {
     return this.maxRecursivityLevel;
   }
-  
-  private Integer maxRecursivityLevel = 0;
-  private Integer calls = 0;
 }

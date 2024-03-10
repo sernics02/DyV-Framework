@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class QuickSort extends DivideAndConquerAlgorithm<ArrayList<Integer>> {
+public class QuickSort extends DivideAndConquerAlgorithm<ArrayList<Integer>, ArrayList<Integer>> {
   @Override
   public Boolean isSmall(ArrayList<Integer> data) {
     return data.size() <= 1;
