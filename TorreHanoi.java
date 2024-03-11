@@ -4,10 +4,13 @@ public class TorreHanoi extends DivideAndConquerAlgorithm<Integer, Void> {
   Integer origen;
   Integer auxiliar;
   Integer destino;
-  public void Hanoi(int n, int origen,  int auxiliar, int destino){
+  private Integer mode;
+  public void Hanoi(int n, int origen,  int auxiliar, int destino, int mode){
     this.origen = origen;
     this.auxiliar = auxiliar;
     this.destino = destino;
+    this.mode = mode;
+
     modification(n, n, 0, 0);
   }
   @Override
@@ -16,7 +19,9 @@ public class TorreHanoi extends DivideAndConquerAlgorithm<Integer, Void> {
   }
   @Override
   public Void solveSmall(Integer data) {
-    System.out.println("mover disco de " + origen + " a " + destino);
+    if (this.mode == 1) {
+      System.out.println("mover disco de " + origen + " a " + destino);
+    }
     return null;
   }
   @Override

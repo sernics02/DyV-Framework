@@ -1,36 +1,72 @@
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.io.BufferedWriter;
-import java.io.File;
+import java.util.Scanner;
 
 public class Ordenacion {
-  public void ordenar() {
-    Integer size = 100;
+  public void normalMode() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Seleccione una opción:");
+    System.out.println("1. Merge Sort");
+    System.out.println("2. Quick Sort");
+
+    int option = scanner.nextInt();
+    DivideAndConquerAlgorithm<ArrayList<Integer>, ArrayList<Integer>> algorithm = null;
+    switch (option) {
+      case 1:
+        algorithm = new MergeSort();
+        System.out.println("Merge Sort:");
+        break;
+      case 2:
+        algorithm = new QuickSort();
+        System.out.println("Quick Sort:");
+        break;
+      default:
+        break;
+    }
+    System.out.println("Tamaño, Tiempo,");
+    for (int i = 1000; i <= 10000; i += 10) {
+      ArrayList<Integer> data = generateArray(i);
+      long startTime = System.currentTimeMillis();
+      algorithm.modification(data, i);
+      long endTime = System.currentTimeMillis();
+      long time = endTime - startTime;
+      System.out.println(i + ", " + time + ",");
+    }
+    scanner.close();
+  }
+
+  public void debugMode() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Seleccione una opción:");
+    System.out.println("1. Merge Sort");
+    System.out.println("2. Quick Sort");
+
+    int option = scanner.nextInt();
+    DivideAndConquerAlgorithm<ArrayList<Integer>, ArrayList<Integer>> algorithm = null;
+    switch (option) {
+      case 1:
+        algorithm = new MergeSort();
+        System.out.println("Merge Sort:\n");
+        break;
+      case 2:
+        algorithm = new QuickSort();
+        System.out.println("Quick Sort:\n");
+        break;
+      default:
+        break;
+    }
+
+    System.out.println("Ingrese el tamaño de la instancia:");
+    int size = scanner.nextInt();
     ArrayList<Integer> data = generateArray(size);
 
-    long startTime = System.currentTimeMillis();
-    DivideAndConquerAlgorithm<ArrayList<Integer>, ArrayList<Integer>> mergeSort = new MergeSort();
-    int mergeRecursiveCalls = 0;
-    Integer mergeMaxRecursivityLevel = 0;
-    ArrayList<Integer> mergeSorted = mergeSort.modification(data, size, mergeRecursiveCalls, mergeMaxRecursivityLevel);
-    mergeRecursiveCalls = mergeSort.getRecursiveCalls();
-    mergeMaxRecursivityLevel = mergeSort.getMaxRecursivityLevel();
-    long endTime = System.currentTimeMillis();
-    long mergeTime = endTime - startTime;
-    
-    startTime = System.currentTimeMillis();
-    Integer quickRecursiveCalls = 0;
-    Integer quickMaxRecursivityLevel = 0;
-    DivideAndConquerAlgorithm<ArrayList<Integer>, ArrayList<Integer>> quickSort = new QuickSort();
-    ArrayList<Integer> quickSorted = quickSort.modification(data, size, quickRecursiveCalls, quickMaxRecursivityLevel);
-    quickRecursiveCalls = quickSort.getRecursiveCalls();
-    quickMaxRecursivityLevel = quickSort.getMaxRecursivityLevel();
-    endTime = System.currentTimeMillis();
-    long quickTime = endTime - startTime;
-    generateTableResults(mergeTime, mergeRecursiveCalls, mergeMaxRecursivityLevel, quickTime, quickRecursiveCalls, quickMaxRecursivityLevel);
-    toFile(mergeSorted, "solutions.txt");
-    toFile(quickSorted, "solutions.txt");
+    System.out.println("Instancia generada:");
+    System.out.println(data);
+
+    System.out.println("Solución obtenida:");
+    ArrayList<Integer> sorted = algorithm.modification(data, size);
+    System.out.println(sorted);
+
+    scanner.close();
   }
   
   public static ArrayList<Integer> generateArray(Integer size) {
@@ -39,38 +75,6 @@ public class Ordenacion {
       data.add((int) (Math.random() * size));
     }
     return data;
-  }
-  
-  public static void generateTableResults(long mergeTime, Integer mergeRecursiveCalls, Integer mergeMaxRecursivityLevel, long quickTime, Integer quickRecursiveCalls, Integer quickMaxRecursivityLevel) {
-    System.out.println("----------------------------------------------------------------------");
-    System.out.println("| Algorithm    | Time (ms) | Recursive Calls | Max Recursivity Level |");
-    System.out.println("----------------------------------------------------------------------");
-    System.out.printf("| Merge Sort   | %9d | %15d | %21d |\n", mergeTime, mergeRecursiveCalls, mergeMaxRecursivityLevel);
-    System.out.printf("| Quick Sort   | %9d | %15d | %21d |\n", quickTime, quickRecursiveCalls, quickMaxRecursivityLevel);
-    System.out.println("----------------------------------------------------------------------");
-    System.out.println();
-  }
-  
-  public static void toFile(ArrayList<Integer> data, String filename) {
-    try {
-      File file = new File(filename);
-      boolean append = file.exists(); // Verificar si el archivo ya existe
-      FileWriter fileWriter = new FileWriter(file, append);
-      BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-      if (append) {
-        bufferedWriter.newLine(); // Agregar una nueva línea antes de añadir los datos
-      }
-
-      for (Integer number : data) {
-        bufferedWriter.write(number + " ");
-      }
-
-      bufferedWriter.close();
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
   }
 }
 
