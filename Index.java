@@ -39,7 +39,7 @@ public class Index {
         torreHanoi.Hanoi(numValues, 1, 2, 3);
         break;
       case 4:
-        int size = 4;
+        int size = 2;
         Matrix a = generateMatrix(size, size);
         Matrix b = generateMatrix(size, size);
         TwoMatrix twoMatrix = new TwoMatrix(a, b);
