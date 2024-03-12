@@ -18,10 +18,7 @@ public class HanoiExecute {
     System.out.println("Ingrese el número de discos: ");
     int i = scanner.nextInt();
     TorreHanoi hanoi = new TorreHanoi();
-    long startTime = System.currentTimeMillis();
     hanoi.Hanoi(i, 1, 2, 3, 1);
-    long endTime = System.currentTimeMillis();
-    long time = endTime - startTime;
     scanner.close();
   }
 }
