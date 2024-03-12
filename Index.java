@@ -32,6 +32,7 @@ public class Index {
     System.out.println("2. BinarySearch");
     System.out.println("3. TorreHanoi");
     System.out.println("4. Strassen");
+    System.out.println("5. Euclides");
 
     int option = scanner.nextInt();
     switch (option) {
@@ -51,6 +52,9 @@ public class Index {
         Strassen strassen = new Strassen();
         strassen.normalMode();
         break;
+      case 5:
+        EuclidesExecute euclides = new EuclidesExecute();
+        euclides.normalMode();
       default:
         System.out.println("Opción inválida");
         break;
@@ -65,6 +69,7 @@ public class Index {
     System.out.println("2. BinarySearch");
     System.out.println("3. TorreHanoi");
     System.out.println("4. Strassen");
+    System.out.println("5. Euclides");
 
     int option = scanner.nextInt();
     switch (option) {
@@ -83,6 +88,10 @@ public class Index {
       case 4:
         Strassen strassen = new Strassen();
         strassen.debugMode();
+        break;
+      case 5:
+        EuclidesExecute euclides = new EuclidesExecute();
+        euclides.debugMode();
         break;
       default:
         System.out.println("Opción inválida");
