@@ -1,42 +1,43 @@
 import java.util.ArrayList;
 
-public class TorreHanoi extends DivideAndConquerAlgorithm<Integer, Void> {
-  Integer origen;
-  Integer auxiliar;
-  Integer destino;
-  private Integer mode;
-  public void Hanoi(int n, int origen,  int auxiliar, int destino, int mode){
-    this.origen = origen;
-    this.auxiliar = auxiliar;
-    this.destino = destino;
-    this.mode = mode;
+public class TorreHanoi extends DivideAndConquerAlgorithm<HanoiClass, Void> {
 
-    modification(n, n, 0, 0);
+  private HanoiClass hanoi;
+
+  public void Hanoi(int n, int origen, int auxiliar, int destino, int mode) {
+    hanoi = new HanoiClass(origen, auxiliar, destino, n, mode);
+    solve(hanoi, n);
   }
+
   @Override
-  public Boolean isSmall(Integer data) {
-    return data == 1;
+  public Boolean isSmall(HanoiClass data) {
+    return data.getSize() == 1;
   }
+
   @Override
-  public Void solveSmall(Integer data) {
-    if (this.mode == 1) {
-      System.out.println("mover disco de " + origen + " a " + destino);
+  public Void solveSmall(HanoiClass data) {
+    if (data.getMode() == 1) {
+      System.out.println("Mover disco " + data.getOrigen());
     }
     return null;
   }
+
   @Override
-  public ArrayList<Integer> decompose(Integer data, Integer size) {
-    ArrayList<Integer> subproblems = new ArrayList<Integer>();
-    subproblems.add(data - 1);
-    subproblems.add(data - 1);
+  public ArrayList<HanoiClass> decompose(HanoiClass data, Integer size) {
+    ArrayList<HanoiClass> subproblems = new ArrayList<>();
+    subproblems.add(new HanoiClass(data.getSize() - 1, data.getOrigen(), data.getAuxiliar(), data.getDestino(), data.getMode()));
+    subproblems.add(new HanoiClass(1, data.getOrigen(), data.getDestino(), data.getAuxiliar(), data.getMode()));
+    subproblems.add(new HanoiClass(data.getSize() - 1, data.getAuxiliar(), data.getDestino(), data.getOrigen(), data.getMode()));
     return subproblems;
   }
+
   @Override
   public Void combine(ArrayList<Void> solutions) {
     return null;
   }
+
   @Override
   public String getRecurrence() {
-    return "2T(n-1) + O(1)";
+    return "T(n) = 2T(n - 1) + 1";
   }
 }

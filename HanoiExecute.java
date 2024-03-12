@@ -22,7 +22,6 @@ public class HanoiExecute {
     hanoi.Hanoi(i, 1, 2, 3, 1);
     long endTime = System.currentTimeMillis();
     long time = endTime - startTime;
-    System.out.println(i + ", " + time + ",");
     scanner.close();
   }
 }
